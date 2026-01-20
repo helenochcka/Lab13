@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package account;
+
+option go_package = "github.com/helenochcka/project-proto/account;accountpb";
+
+service AccountService {
+  rpc CreateAccount (CreateAccountRequest) returns (CreateAccountResponse);
+  rpc GetAccount (GetAccountRequest) returns (GetAccountResponse);
+  rpc UpdateAccount (UpdateAccountRequest) returns (UpdateAccountResponse);
+  rpc DeleteAccount (DeleteAccountRequest) returns (DeleteAccountResponse);
+  rpc CheckAccountExists (CheckAccountExistsRequest) returns (CheckAccountExistsResponse);
+}
+
+message Account {
+  string id = 1;
+  string email = 2;
+  string name = 3;
+}
+
+message CreateAccountRequest {
+  string email = 1;
+  string name = 2;
+}
+
+message CreateAccountResponse {
+  Account account = 1;
+}
+
+message GetAccountRequest {
+  string id = 1;
+}
+
+message GetAccountResponse {
+  Account account = 1;
+}
+
+message UpdateAccountRequest {
+  string id = 1;
+  string email = 2;
+  string name = 3;
+}
+
+message UpdateAccountResponse {
+  Account account = 1;
+}
+
+message DeleteAccountRequest {
+  string id = 1;
+}
+
+message DeleteAccountResponse {
+  bool success = 1;
+}
+
+message CheckAccountExistsRequest {
+  string id = 1;
+}
+
+message CheckAccountExistsResponse {
+  bool exists = 1;
+}
