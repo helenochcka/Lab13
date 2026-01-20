@@ -20,9 +20,18 @@ func main() {
 		log.Fatal(err)
 	}
 
-	accountCli, _ := client.NewAccountClient("proto-service:50051")
-	eventCli, _ := client.NewEventClient("proto-service:50052")
-	notifyCli, _ := client.NewNotificationClient("proto-service:50054")
+	accountCli, err := client.NewAccountClient("account-service:50051")
+	if err != nil {
+		log.Fatalf("failed to create account client: %v", err)
+	}
+	eventCli, err := client.NewEventClient("event-service:50052")
+	if err != nil {
+		log.Fatalf("failed to create event client: %v", err)
+	}
+	notifyCli, err := client.NewNotificationClient("notification-service:50054")
+	if err != nil {
+		log.Fatalf("failed to create notification client: %v", err)
+	}
 
 	repo := repository.NewBookingRepository(dbConn)
 	handler := grpcHandler.NewBookingHandler(repo, accountCli, eventCli, notifyCli)

@@ -21,7 +21,6 @@ func (h *NotificationHandler) SendBookingConfirmation(
 	req *notificationpb.BookingNotificationRequest,
 ) (*notificationpb.BookingNotificationResponse, error) {
 
-	// имитация внешнего сервиса
 	time.Sleep(300 * time.Millisecond)
 
 	log.Printf(
