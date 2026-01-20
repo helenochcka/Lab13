@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"event-service/internal/repository"
+
 	eventpb "event-service/proto"
 )
 

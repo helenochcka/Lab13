@@ -7,6 +7,7 @@ import (
 	"google.golang.org/grpc"
 
 	grpcHandler "notification-service/internal/transport/grpc"
+
 	notificationpb "notification-service/proto"
 )
 

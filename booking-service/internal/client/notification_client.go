@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	notificationpb "github.com/helenochcka/project-proto/account"
+	notificationpb "booking-service/proto/notification"
 
 	"google.golang.org/grpc"
 )

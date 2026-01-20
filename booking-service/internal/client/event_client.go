@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	eventpb "event-service/proto"
+	eventpb "booking-service/proto/event"
 
 	"google.golang.org/grpc"
 )

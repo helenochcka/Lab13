@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package notification;
+
+option go_package = "booking-service/notification/proto;notificationpb";
+
+service NotificationService {
+  rpc SendBookingConfirmation (BookingNotificationRequest)
+      returns (BookingNotificationResponse);
+
+  rpc SendBookingCancellation (BookingNotificationRequest)
+      returns (BookingNotificationResponse);
+}
+
+message BookingNotificationRequest {
+  string booking_id = 1;
+}
+
+message BookingNotificationResponse {
+  bool success = 1;
+}

@@ -1,0 +1,77 @@
+services:
+  account-db:
+    image: postgres:16
+    container_name: account-postgres
+    environment:
+      POSTGRES_DB: account
+      POSTGRES_USER: account
+      POSTGRES_PASSWORD: account
+    ports:
+      - "5433:5432"
+
+  account-service:
+    build:
+      context: .
+      dockerfile: account-service/Dockerfile
+    container_name: account-service
+    environment:
+      POSTGRES_DSN: postgres://account:account@account-db:5432/account?sslmode=disable
+    depends_on:
+      - account-db
+    ports:
+      - "50051:50051"
+
+  event-db:
+    image: postgres:16
+    container_name: event-postgres
+    environment:
+      POSTGRES_DB: event
+      POSTGRES_USER: event
+      POSTGRES_PASSWORD: event
+    ports:
+      - "5434:5432"
+
+  event-service:
+    build:
+      context: .
+      dockerfile: event-service/Dockerfile
+    container_name: event-service
+    environment:
+      POSTGRES_DSN: postgres://event:event@event-db:5432/event?sslmode=disable
+    depends_on:
+      - event-db
+    ports:
+      - "50052:50052"
+
+  booking-db:
+    image: postgres:16
+    container_name: booking-postgres
+    environment:
+      POSTGRES_DB: booking
+      POSTGRES_USER: booking
+      POSTGRES_PASSWORD: booking
+    ports:
+      - "5435:5432"
+
+  booking-service:
+    build:
+      context: .
+      dockerfile: booking-service/Dockerfile
+    container_name: booking-service
+    environment:
+      POSTGRES_DSN: postgres://booking:booking@booking-db:5432/booking?sslmode=disable
+    depends_on:
+      - booking-db
+      - account-service
+      - event-service
+      - notification-service
+    ports:
+      - "50053:50053"
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: notification-service/Dockerfile
+    container_name: notification-service
+    ports:
+      - "50054:50054"

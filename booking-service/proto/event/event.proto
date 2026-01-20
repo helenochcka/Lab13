@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package event;
+
+option go_package = "booking-service/event/proto;eventpb";
+
+service EventService {
+  rpc CreateEvent (CreateEventRequest) returns (CreateEventResponse);
+  rpc GetEvent (GetEventRequest) returns (GetEventResponse);
+  rpc ListEvents (ListEventsRequest) returns (ListEventsResponse);
+  rpc ReserveSeat (ReserveSeatRequest) returns (ReserveSeatResponse);
+  rpc ReleaseSeat (ReleaseSeatRequest) returns (ReleaseSeatResponse);
+}
+
+message Event {
+  string id = 1;
+  string title = 2;
+  int32 total_seats = 3;
+  int32 available_seats = 4;
+}
+
+message CreateEventRequest {
+  string title = 1;
+  int32 total_seats = 2;
+}
+
+message CreateEventResponse {
+  Event event = 1;
+}
+
+message GetEventRequest {
+  string id = 1;
+}
+
+message GetEventResponse {
+  Event event = 1;
+}
+
+message ListEventsRequest {}
+
+message ListEventsResponse {
+  repeated Event events = 1;
+}
+
+message ReserveSeatRequest {
+  string event_id = 1;
+}
+
+message ReserveSeatResponse {
+  bool success = 1;
+}
+
+message ReleaseSeatRequest {
+  string event_id = 1;
+}
+
+message ReleaseSeatResponse {
+  bool success = 1;
+}

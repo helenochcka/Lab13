@@ -6,9 +6,10 @@ import (
 	"log"
 	"time"
 
+	bookingpb "booking-service/proto/booking"
+
 	"booking-service/internal/client"
 	"booking-service/internal/repository"
-	bookingpb "booking-service/proto"
 )
 
 type BookingHandler struct {
@@ -43,7 +44,7 @@ func (h *BookingHandler) CreateBooking(
 
 	exists, err := h.accountCli.Exists(ctx, req.AccountId)
 	if err != nil || !exists {
-		return nil, errors.New("account not found")
+		return nil, errors.New("proto not found")
 	}
 
 	ok, err := h.eventCli.ReserveSeat(ctx, req.EventId)
@@ -57,10 +58,10 @@ func (h *BookingHandler) CreateBooking(
 		return nil, err
 	}
 
-	// best-effort notification
+	// best-effort proto
 	go func() {
 		if err := h.notifyCli.SendBookingCreated(context.Background(), booking.ID); err != nil {
-			log.Println("notification failed:", err)
+			log.Println("proto failed:", err)
 		}
 	}()
 

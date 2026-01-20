@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package account;
 
-option go_package = "account-service/proto;accountpb";
+option go_package = "booking-service/account/proto;accountpb";
 
 service AccountService {
   rpc CreateAccount (CreateAccountRequest) returns (CreateAccountResponse);

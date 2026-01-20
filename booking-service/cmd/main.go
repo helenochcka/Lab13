@@ -1,6 +1,7 @@
 package main
 
 import (
+	bookingpb "booking-service/proto/booking"
 	"log"
 	"net"
 	"os"
@@ -11,7 +12,6 @@ import (
 	"booking-service/internal/db"
 	"booking-service/internal/repository"
 	grpcHandler "booking-service/internal/transport/grpc"
-	bookingpb "booking-service/proto"
 )
 
 func main() {
@@ -20,9 +20,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	accountCli, _ := client.NewAccountClient("account-service:50051")
-	eventCli, _ := client.NewEventClient("event-service:50052")
-	notifyCli, _ := client.NewNotificationClient("notification-service:50054")
+	accountCli, _ := client.NewAccountClient("proto-service:50051")
+	eventCli, _ := client.NewEventClient("proto-service:50052")
+	notifyCli, _ := client.NewNotificationClient("proto-service:50054")
 
 	repo := repository.NewBookingRepository(dbConn)
 	handler := grpcHandler.NewBookingHandler(repo, accountCli, eventCli, notifyCli)

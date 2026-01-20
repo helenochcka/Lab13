@@ -10,6 +10,7 @@ import (
 	"event-service/internal/db"
 	"event-service/internal/repository"
 	grpcHandler "event-service/internal/transport/grpc"
+
 	eventpb "event-service/proto"
 )
 
